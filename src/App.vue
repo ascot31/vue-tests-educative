@@ -1,30 +1,32 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div id="app">
+    <MessageList>
+      <template v-slot:header>
+          El titulo
+      </template>
+      <Message
+        @message-clicked="handleMessageClick"
+        :message="message"
+        v-for="(message, index) in messages"
+        :key="index"
+      />
+    </MessageList>
   </div>
-  <router-view/>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import MessageList from './components/MessageList'
+import Message from './components/Message'
+export default {
+  name: 'app',
+  data: () => ({ messages: ['Perro'] }),
+  methods: {
+    handleMessageClick (message) {
+      console.log('HandleMessageClick: ', message)
     }
+  },
+  components: {
+    MessageList, Message
   }
 }
-</style>
+</script>
